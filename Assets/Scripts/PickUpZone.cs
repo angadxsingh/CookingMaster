@@ -3,19 +3,19 @@ using UnityEngine.UI;
 
 public class PickUpZone : MonoBehaviour
 {
-    public GameObject pickupPrompt;   
-    public Sprite vegetableSprite;    
- 
+    public GameObject pickupPrompt;
+    public Sprite vegetableSprite;
+
     private bool playerInZone = false;
 
     private void Start()
     {
-        pickupPrompt.SetActive(false);                //using prompt when player in zone to let them pick up
+        pickupPrompt.SetActive(false);                   //using prompt when player in zone to let them pick up
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))                //using a collider and a zone to let player pick up vegetable
+        if (other.CompareTag("Player"))                  //using a collider and a zone to let player pick up vegetable
         {
             playerInZone = true;
             pickupPrompt.SetActive(true);
@@ -35,11 +35,17 @@ public class PickUpZone : MonoBehaviour
     {
         if (playerInZone && Input.GetKeyDown(KeyCode.F))
         {
-            PlayerInventory inventory = FindObjectOfType<PlayerInventory>();     
-            if (inventory != null && inventory.CanPickup())          //checks if any veg is in hand
+            PlayerInventory inventory = FindObjectOfType<PlayerInventory>();                   
+            if (inventory != null)
             {
-                inventory.PickupVegetable(vegetableSprite);           
-                Debug.Log($"picked up and displayed");
+                if (inventory.CanPickup())                                       //fetching the PlayerInventory.cs to check if new CanPickup() condition is met which includes checking if there is a slot in inventory
+                {
+                    inventory.PickupVegetable(vegetableSprite);      
+                }
+                else
+                {
+                    Debug.Log("inventory full");                            //for now a debug log, will change to a prompt later
+                }
             }
         }
     }
