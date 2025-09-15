@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//First player basic movement script to test functionality 
-
 public class PlayerController : MonoBehaviour
 {
     public float speed = 5f;
 
     private Rigidbody2D rb;
+
+    public KeyCode moveUp = KeyCode.W;
+    public KeyCode moveDown = KeyCode.S;
+    public KeyCode moveLeft = KeyCode.A;
+    public KeyCode moveRight = KeyCode.D;
 
     private void Start()
     {
@@ -17,9 +20,18 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        float X = Input.GetAxis("Horizontal");  
-        float Y = Input.GetAxis("Vertical");    
+        Vector2 movement = Vector2.zero;
 
-        rb.velocity = new Vector2(X, Y) * speed;
+        if (Input.GetKey(moveUp))
+            movement.y += 1;
+        if (Input.GetKey(moveDown))
+            movement.y -= 1;
+        if (Input.GetKey(moveLeft))
+            movement.x -= 1;
+        if (Input.GetKey(moveRight))
+            movement.x += 1;
+
+        movement = movement.normalized * speed;
+        rb.velocity = movement;
     }
 }

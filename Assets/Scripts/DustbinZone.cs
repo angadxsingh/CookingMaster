@@ -5,8 +5,14 @@ using UnityEngine.UI;
 
 public class DustbinZone : MonoBehaviour                                          //similar script to other zone scripts for dustbin       
 {
-    public GameObject discardPrompt;  
+    public GameObject discardPrompt;
 
+    [Header("Player Input")]
+    public KeyCode player1Key = KeyCode.F;
+    public KeyCode player2Key = KeyCode.G;  
+
+    private PlayerInventory currentPlayerInventory = null;
+    private GameObject currentPlayer = null;
     private bool playerInZone = false;
 
     private void Start()
@@ -19,6 +25,8 @@ public class DustbinZone : MonoBehaviour                                        
         if (other.CompareTag("Player"))
         {
             playerInZone = true;
+            currentPlayer = other.gameObject;
+            currentPlayerInventory = other.GetComponent<PlayerInventory>();
             discardPrompt.SetActive(true);
         }
     }
@@ -28,18 +36,37 @@ public class DustbinZone : MonoBehaviour                                        
         if (other.CompareTag("Player"))
         {
             playerInZone = false;
+            currentPlayer = null;
+            currentPlayerInventory = null;
             discardPrompt.SetActive(false);
         }
     }
 
-    private void Update()                                                                    //prompts to drop the first vegetable in inventory via a new function in PlayerInventory
-    {                                                                                        //can use a similar function to put vegetable on chopping tray later on
-        if (playerInZone && Input.GetKeyDown(KeyCode.F))
+    private void Update()                                                                    //using same new 2 player logic as changed in PickUpZone.cs by locally storing info on whatever player is in zone
+    {                                                                                        
+        if (playerInZone && currentPlayerInventory != null)
         {
-            PlayerInventory inventory = FindObjectOfType<PlayerInventory>();
-            if (inventory != null)
+            bool discardPressed = false;
+
+            if (currentPlayer.name.Contains("Player1") && Input.GetKeyDown(player1Key))
             {
-                inventory.DiscardFirstVegetable();
+                discardPressed = true;
+            }
+            else if (currentPlayer.name.Contains("Player2") && Input.GetKeyDown(player2Key))
+            {
+                discardPressed = true;
+            }
+
+            if (discardPressed)
+            {
+                if (currentPlayerInventory.carriedVegetables.Count > 0)
+                {
+                    currentPlayerInventory.DiscardFirstVegetable();
+                }
+                else
+                {
+                    Debug.Log("nothing");
+                }
             }
         }
     }
