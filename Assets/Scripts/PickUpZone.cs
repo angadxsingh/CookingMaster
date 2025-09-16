@@ -45,13 +45,14 @@ public class PickUpZone : MonoBehaviour
     {
         if (playerInZone && currentPlayerInventory != null)                   
         {
-            bool pickupPressed = false;                                //assuming by default no key is pressed while entering 
+            bool pickupPressed = false;                                //assuming by default no key is pressed while entering
+            int id = currentPlayerInventory.playerID; 
                                                                                                                     
-            if (currentPlayer.name.Contains("Player1") && Input.GetKeyDown(player1Key))       // Check which player is in zone and use their key
+            if (id == 1 && Input.GetKeyDown(player1Key))       // Check which player is in zone and use their key
             {
                 pickupPressed = true;
             }
-            else if (currentPlayer.name.Contains("Player2") && Input.GetKeyDown(player2Key))
+            else if (id == 2 && Input.GetKeyDown(player2Key))
             {
                 pickupPressed = true;
             }

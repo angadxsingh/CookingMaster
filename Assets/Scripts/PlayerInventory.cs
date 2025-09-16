@@ -5,9 +5,11 @@ using UnityEngine.UI;
 
 public class PlayerInventory : MonoBehaviour
 {
+    public int playerID = 1;                                              //sets a player id that we'll use going forward instead of names
     public int maxItems = 2;                                              //max items to be carried by a player
     public List<Sprite> carriedVegetables = new List<Sprite>();           //List to store vegetables as sprites
     public Image[] carryDisplaySlots;                                     //for 2 blank slots that show inventory vegetables
+    public List<Sprite> carriedDish = new List<Sprite>();
 
     private void Start()
     {
@@ -55,5 +57,23 @@ public class PlayerInventory : MonoBehaviour
             carriedVegetables.RemoveAt(0);                                 //if there is any veg, removes the first index of it, FIFO principle 
             UpdateCarryDisplay();                                          
         }
+    }
+
+    public bool HasDish()                                                  //to check if the player is carrying salad
+    {
+        return carriedDish.Count > 0;               
+    }
+
+    public void TakeDish(List<Sprite> salad)                               //clears any dish list and then copies the salad into player list
+    {                                                                      // i am using this in the ServingZone.cs
+        carriedDish.Clear();
+        carriedDish.AddRange(salad);
+    }
+
+    public List<Sprite> DropDish()                                         //makes a copy of the carriedDish and clears it from the inventory
+    {                                                                      //I am using this copy now to validate against the customers order in CustomerZone.cs
+        List<Sprite> dishCopy = new List<Sprite>(carriedDish);             //had to do this otherwise if cleared, the reference would be empty against customer
+        carriedDish.Clear();
+        return dishCopy;
     }
 }

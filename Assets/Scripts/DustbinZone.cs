@@ -47,12 +47,13 @@ public class DustbinZone : MonoBehaviour                                        
         if (playerInZone && currentPlayerInventory != null)
         {
             bool discardPressed = false;
+            int id = currentPlayerInventory.playerID;
 
-            if (currentPlayer.name.Contains("Player1") && Input.GetKeyDown(player1Key))
+            if (id == 1 && Input.GetKeyDown(player1Key))
             {
                 discardPressed = true;
             }
-            else if (currentPlayer.name.Contains("Player2") && Input.GetKeyDown(player2Key))
+            else if (id == 2 && Input.GetKeyDown(player2Key))
             {
                 discardPressed = true;
             }

@@ -49,12 +49,13 @@ public class ServingZone : MonoBehaviour
         if (playerInZone && choppingBoard != null && choppingBoard.choppedSalad.Count > 0)                    //if the player is in the zone and there is something on the chopping board
         {
             bool servePressed = false;
+            int id = currentPlayerInventory.playerID;
 
-            if (currentPlayer.name.Contains("Player1") && Input.GetKeyDown(player1Key))
+            if (id == 1 && Input.GetKeyDown(player1Key))
             {
                 servePressed = true;
             }
-            else if (currentPlayer.name.Contains("Player2") && Input.GetKeyDown(player2Key))
+            else if (id == 2 && Input.GetKeyDown(player2Key))
             {
                 servePressed = true;
             }
@@ -62,8 +63,9 @@ public class ServingZone : MonoBehaviour
             if (servePressed)                                            
             {
                 List<Sprite> servedSalad = choppingBoard.TakeSalad();                                     //takes the entire list of stored vegetables and stores it in servedSalad
+                currentPlayerInventory.TakeDish(servedSalad);                                             //to store the servedSalad in the player inventory
 
-                Debug.Log($"{currentPlayer.name} is serving a salad");
+                Debug.Log($"Player{id} is serving a salad");
 
                 servePrompt.SetActive(false);
             }

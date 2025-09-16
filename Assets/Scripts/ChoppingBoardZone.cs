@@ -60,12 +60,13 @@ public class ChoppingBoardZone : MonoBehaviour                                  
         if (playerInZone && currentPlayerInventory != null && !isChopping)                   //if player is in zone with a valid inventory and is not chopping yet
         {
             bool chopPressed = false;
+            int id = currentPlayerInventory.playerID;
 
-            if (currentPlayer.name.Contains("Player1") && Input.GetKeyDown(player1Key))        //action for chopPressed = true
+            if (id == 1 && Input.GetKeyDown(player1Key))        //action for chopPressed = true
             {
                 chopPressed = true;
             }
-            else if (currentPlayer.name.Contains("Player2") && Input.GetKeyDown(player2Key))
+            else if (id == 2 && Input.GetKeyDown(player2Key))
             {
                 chopPressed = true;
             }
@@ -84,7 +85,7 @@ public class ChoppingBoardZone : MonoBehaviour                                  
         if (currentPlayerController != null)                    //disable movement
             currentPlayerController.enabled = false;
 
-        Debug.Log($"{currentPlayer.name} is chopping...");      
+        Debug.Log($"Player{currentPlayerInventory.playerID} is chopping...");      
         yield return new WaitForSeconds(chopTime);              //makes player wait for chopping time
 
         Sprite veg = currentPlayerInventory.carriedVegetables[0];           //takes the first veg from inventory and removes it
@@ -117,8 +118,8 @@ public class ChoppingBoardZone : MonoBehaviour                                  
     }
 
     public List<Sprite> TakeSalad()                                      //used by my serving script to take the salad for serving and remove it from the chopped display
-    {
-        List<Sprite> saladCopy = new List<Sprite>(choppedSalad);
+    {                                                                    //always taking a copy and then clearing
+        List<Sprite> saladCopy = new List<Sprite>(choppedSalad);     
         choppedSalad.Clear();
         UpdateBoardDisplay();
         return saladCopy;
