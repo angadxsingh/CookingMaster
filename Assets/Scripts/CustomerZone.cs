@@ -63,6 +63,11 @@ public class CustomerZone : MonoBehaviour
                 {
                     int point = customer.GetPoint();                              //gets the reward points from Customer.cs
                     ScoreManager.Instance.AddScore(id, point);                    //score added
+
+                    if (point == 5)
+                    {
+                        PowerUpSpawner.Instance.SpawnRandomPowerUp();              //simple check if point is 5, power up is spawned
+                    }
                 }
                 else
                 {
