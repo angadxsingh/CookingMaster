@@ -43,4 +43,11 @@ public class ScoreManager : MonoBehaviour
         if (player2ScoreText != null)
             player2ScoreText.text = "P2: " + player2Score.ToString();
     }
+
+    public int GetScore(int playerID)                                     //using this to fetch the score to display in the end panel
+    {
+        if (playerID == 1) return player1Score;
+        if (playerID == 2) return player2Score;
+        return 0;
+    }
 }
