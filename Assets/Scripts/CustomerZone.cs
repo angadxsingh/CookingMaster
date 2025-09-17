@@ -58,15 +58,14 @@ public class CustomerZone : MonoBehaviour
             if (deliverPressed)
             {
                 List<Sprite> deliveredDish = currentPlayerInventory.DropDish();               //takes dish from player, copies and clears like explained in PlayerInventory.cs
-
+                
                 if (customer.CheckOrder(deliveredDish))                       //checks if delivered dish, matches order
                 {
-                    Debug.Log($"Player{id} is correct");
-                    ScoreManager.Instance.AddScore(id, 2);                    //score added
+                    int point = customer.GetPoint();                              //gets the reward points from Customer.cs
+                    ScoreManager.Instance.AddScore(id, point);                    //score added
                 }
                 else
                 {
-                    Debug.Log($"Player{id} is wrong");
                     ScoreManager.Instance.AddScore(id, -1);                   //score deducted
                 }   
 
