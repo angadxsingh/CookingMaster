@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class ChoppingBoardZone : MonoBehaviour                                  //a script to simulate chopping working on similar zone logic used through out
 {
     public GameObject chopPrompt;                                      
-    public float chopTime = 2f;                                            
+    public float chopTime = 2f;
+    public int allowedPlayerID = 1;                                             //checking allowed player for designated chopping zone
 
     [Header("Player Input")]
     public KeyCode player1Key = KeyCode.F;                                   
@@ -57,7 +58,7 @@ public class ChoppingBoardZone : MonoBehaviour                                  
 
     private void Update()
     {
-        if (playerInZone && currentPlayerInventory != null && !isChopping)                   //if player is in zone with a valid inventory and is not chopping yet
+        if (playerInZone && currentPlayerInventory != null && !isChopping && currentPlayerInventory.playerID == allowedPlayerID)                   //if player is in zone with a valid inventory and is not chopping yet and validates id
         {
             bool chopPressed = false;
             int id = currentPlayerInventory.playerID;

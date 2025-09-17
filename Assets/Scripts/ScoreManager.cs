@@ -35,7 +35,7 @@ public class ScoreManager : MonoBehaviour
         UpdateUI();
     }
 
-    private void UpdateUI()
+    private void UpdateUI()                                                //to update score ui
     {
         if (player1ScoreText != null)
             player1ScoreText.text = "P1: " + player1Score.ToString();

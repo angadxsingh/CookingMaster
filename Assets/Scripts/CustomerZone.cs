@@ -6,6 +6,7 @@ public class CustomerZone : MonoBehaviour
 {
     public GameObject deliverPrompt;
     public Customer customer;                                  //reference to the customer to validate orders
+    public int allowedPlayerID = 1;                            //added an id check so only desginated player can serve to designated customer
 
     [Header("Player Input")]
     public KeyCode player1Key = KeyCode.F;
@@ -44,7 +45,7 @@ public class CustomerZone : MonoBehaviour
 
     private void Update()
     {
-        if (playerInZone && currentPlayerInventory != null && currentPlayerInventory.HasDish())             //checking if player is carrying a dish
+        if (playerInZone && currentPlayerInventory != null && currentPlayerInventory.HasDish() && currentPlayerInventory.playerID == allowedPlayerID)             //checking if player is carrying a dish and also checking id
         {
             bool deliverPressed = false;
             int id = currentPlayerInventory.playerID;

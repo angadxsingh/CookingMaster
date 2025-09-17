@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ServingZone : MonoBehaviour
 {
     public GameObject servePrompt;                   //serving prompt
+    public int allowedPlayerID = 1;                  //id check again so only correct player takes salad
 
     [Header("Player Input")]
     public KeyCode player1Key = KeyCode.F;
@@ -46,7 +47,7 @@ public class ServingZone : MonoBehaviour
 
     private void Update() 
     {
-        if (playerInZone && choppingBoard != null && choppingBoard.choppedSalad.Count > 0)                    //if the player is in the zone and there is something on the chopping board
+        if (playerInZone && choppingBoard != null && choppingBoard.choppedSalad.Count > 0 && currentPlayerInventory.playerID == allowedPlayerID)                    //if the player is in the zone and there is something on the chopping board and matches id
         {
             bool servePressed = false;
             int id = currentPlayerInventory.playerID;

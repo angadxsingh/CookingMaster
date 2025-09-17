@@ -5,7 +5,7 @@ public class PickUpZone : MonoBehaviour
 {
     public GameObject pickupPrompt;
     public Sprite vegetableSprite;                                //local vegetable sprite
-
+                                                                  //no new id check system here because any player can pickup any vegetable
     [Header("Player Input")]                                      //seperation of both player inputs to pick up
     public KeyCode player1Key = KeyCode.F;
     public KeyCode player2Key = KeyCode.G;
