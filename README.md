@@ -88,26 +88,3 @@ A salad making couch co-op game, where 2 players have to pickup vegetables, chop
 3. Mini challenges betweeen players, where time is paused, and whoever wins gets an advantage.
 
 4. Difficult combination of orders
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
